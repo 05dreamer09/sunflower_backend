@@ -52,10 +52,10 @@ public class Favorite_Genres_Service {
 
     public String returnMovie(Favorite_Genres_Dto favorite_genres_dto) {
         try {
-            String pythonPath = "python";
+            String pythonPath = "python3";
 
             // 파이썬 스크립트 경로
-            String scriptPath = "C:\\Users\\rlawo\\OneDrive\\바탕 화면\\movie.py";
+            String scriptPath = "/home/ubuntu/movie.py";
 
             // 파이썬 실행 명령 준비
             ProcessBuilder pb = new ProcessBuilder(pythonPath, scriptPath, favorite_genres_dto.getGenre1(), favorite_genres_dto.getGenre2());

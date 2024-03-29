@@ -14,7 +14,7 @@ public class Favorite_Genres_Controller {
     public Favorite_Genres_Controller(Favorite_Genres_Service favorite_genres_service) { this.favorite_genres_service = favorite_genres_service;    }
 
     @PostMapping("favoritegenres")
-    public String save(@RequestBody Favorite_Genres_Dto favorite_genres_dto)  {
+    public String save( Favorite_Genres_Dto favorite_genres_dto)  {
         favorite_genres_service.saveFavoriteGenres(favorite_genres_dto);
         return favorite_genres_service.returnMovie(favorite_genres_dto);
     }
@@ -22,6 +22,12 @@ public class Favorite_Genres_Controller {
     @GetMapping("FavoriteGenres/{genre1}")
     public Favorite_Genres_Dto findFGByGenre1(@PathVariable String genre1)  {
         return favorite_genres_service.findFGByGenre1(genre1);
+    }
+
+    @GetMapping("asdf")
+    public String asdf()
+    {
+        return "장현준 바보";
     }
 
 

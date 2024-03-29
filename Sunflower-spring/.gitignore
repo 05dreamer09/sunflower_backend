@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+### 인증키###
+sunflower_backend/Sunflower-spring/src/main/resources/

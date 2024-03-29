@@ -10,10 +10,10 @@ public class Favorite_Genres_Controller {
 
     private final Favorite_Genres_Service favorite_genres_service;
 
-    //@Autowired
+    @Autowired
     public Favorite_Genres_Controller(Favorite_Genres_Service favorite_genres_service) { this.favorite_genres_service = favorite_genres_service;    }
 
-    @PostMapping("FavoriteGenres")
+    @PostMapping("favoritegenres")
     public String save(@RequestBody Favorite_Genres_Dto favorite_genres_dto)  {
         favorite_genres_service.saveFavoriteGenres(favorite_genres_dto);
         return favorite_genres_service.returnMovie(favorite_genres_dto);

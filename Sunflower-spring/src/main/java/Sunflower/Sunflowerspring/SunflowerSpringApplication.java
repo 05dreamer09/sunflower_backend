@@ -16,7 +16,7 @@ public class SunflowerSpringApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SunflowerSpringApplication.class, args);
 	}
-
+/*
     @Bean
     public ServletWebServerFactory servletContainer() {
         // Enable SSL Trafic
@@ -43,6 +43,7 @@ public class SunflowerSpringApplication {
     port 8082. With SSL it will use port 8443. So, any request for 8082 needs to be
     redirected to HTTPS on 8443.
      */
+    /*
     private Connector httpToHttpsRedirectConnector() {
         Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setScheme("http");
@@ -51,5 +52,5 @@ public class SunflowerSpringApplication {
         connector.setRedirectPort(443);
         return connector;
     }
-
+    */
 }

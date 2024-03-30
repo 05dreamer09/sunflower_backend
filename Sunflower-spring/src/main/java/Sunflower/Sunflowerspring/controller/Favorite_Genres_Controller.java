@@ -5,7 +5,7 @@ import Sunflower.Sunflowerspring.service.Favorite_Genres_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "https://resttesttest.com/") // 컨트롤러에서 설정
+@CrossOrigin(origins = {"https://resttesttest.com/", "http://127.0.0.1/", "https://125.178.91.189/", "http://125.178.91.189", "125.178.91.189"}) // 컨트롤러에서 설정
 @RestController
 public class Favorite_Genres_Controller {
 

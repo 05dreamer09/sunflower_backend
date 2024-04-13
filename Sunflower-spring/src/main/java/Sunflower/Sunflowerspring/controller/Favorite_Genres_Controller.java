@@ -17,7 +17,8 @@ public class Favorite_Genres_Controller {
     @PostMapping("favoritegenres")
     public String save( Favorite_Genres_Dto favorite_genres_dto)  {
         favorite_genres_service.saveFavoriteGenres(favorite_genres_dto);
-        return favorite_genres_service.returnMovie(favorite_genres_dto);
+        //여기에 DB에서 영화들 넘겨주는 기능 넣으면 됨.
+        return "기달";
     }
 
     @GetMapping("FavoriteGenres/{genre1}")

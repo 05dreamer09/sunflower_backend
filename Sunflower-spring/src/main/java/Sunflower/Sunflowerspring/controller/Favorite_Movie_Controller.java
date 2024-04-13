@@ -2,6 +2,7 @@ package Sunflower.Sunflowerspring.controller;
 
 import Sunflower.Sunflowerspring.dto.Favorite_Genres_Dto;
 import Sunflower.Sunflowerspring.dto.Favorite_Movie_Dto;
+import Sunflower.Sunflowerspring.dto.ReturnMovies_Dto;
 import Sunflower.Sunflowerspring.service.Favorite_Genres_Service;
 import Sunflower.Sunflowerspring.service.Favorite_Movie_Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class Favorite_Movie_Controller {
     public Favorite_Movie_Controller(Favorite_Movie_Service favorite_movie_service) { this.favorite_movie_service = favorite_movie_service;    }
 
     @PostMapping("favoritemovie")
-    public String returnMovie( Favorite_Movie_Dto favorite_movie_dto)  {
+    public ReturnMovies_Dto returnMovie(Favorite_Movie_Dto favorite_movie_dto)  {
 
         return favorite_movie_service.returnMovie(favorite_movie_dto);
 

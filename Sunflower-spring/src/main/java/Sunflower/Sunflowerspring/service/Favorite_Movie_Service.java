@@ -5,6 +5,7 @@ import Sunflower.Sunflowerspring.domain.Favorite_Genres;
 import Sunflower.Sunflowerspring.domain.Favorite_Movie;
 import Sunflower.Sunflowerspring.dto.Favorite_Genres_Dto;
 import Sunflower.Sunflowerspring.dto.Favorite_Movie_Dto;
+import Sunflower.Sunflowerspring.dto.ReturnMovies_Dto;
 import Sunflower.Sunflowerspring.repository.Favorite_Genres_Repository;
 import Sunflower.Sunflowerspring.repository.Favorite_Movie_Repository;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class Favorite_Movie_Service {
     //*************************************************************************************************
     //사실상 여기 필요없음. 리포지토리도 따로 만들필요없음.
 
-    public String returnMovie(Favorite_Movie_Dto favorite_movie_dto) {
+    public ReturnMovies_Dto returnMovie(Favorite_Movie_Dto favorite_movie_dto) {
         try {
             String pythonPath = "python3";
 
@@ -72,8 +73,10 @@ public class Favorite_Movie_Service {
             // 프로세스가 완료될 때까지 대기
             process.waitFor();
 
+            String[] movies = result.split("/");
+            ReturnMovies_Dto returnMovies = new ReturnMovies_Dto(movies[0], movies[1], movies[2], movies[3], movies[4]);
             // 결과 반환
-            return result;
+            return returnMovies;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return null;

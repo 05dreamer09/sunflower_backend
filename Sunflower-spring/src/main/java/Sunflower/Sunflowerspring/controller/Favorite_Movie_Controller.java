@@ -17,7 +17,7 @@ public class Favorite_Movie_Controller {
     @Autowired
     public Favorite_Movie_Controller(Favorite_Movie_Service favorite_movie_service) { this.favorite_movie_service = favorite_movie_service;    }
 
-    @PostMapping("favoritemovie")
+    @PostMapping("favoritemovies")
     public ReturnMovies_Dto returnMovie(Favorite_Movie_Dto favorite_movie_dto)  {
 
         return favorite_movie_service.returnMovie(favorite_movie_dto);

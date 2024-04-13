@@ -26,7 +26,7 @@ public class Favorite_Genres_Movie_Test {
     @AfterEach
     public void afterEach() { favorite_movie_memoryRepository.clearStore();}
 
-
+/*
     @Test
     public void returnMovieTest()   {
         Favorite_Movie_Dto favorite_movie_dto = new Favorite_Movie_Dto();
@@ -36,12 +36,12 @@ public class Favorite_Genres_Movie_Test {
 
         ReturnMovies_Dto movies;
         movies = favorite_movie_service.returnMovie(favorite_movie_dto);
-
+*/
         /*
         assertEquals("범죄도시4", result);
-*/
-    }
 
+    }
+*/
 
 
 

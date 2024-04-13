@@ -54,7 +54,7 @@ public class Favorite_Movie_Service {
             String pythonPath = "python3";
 
             // 파이썬 스크립트 경로
-            String scriptPath = "../../../movie.py";
+            String scriptPath = "../../../movie2.py";
             // String scriptPath = "/home/ubuntu/movie.py";
 
             // 파이썬 실행 명령 준비
@@ -73,7 +73,7 @@ public class Favorite_Movie_Service {
             // 프로세스가 완료될 때까지 대기
             process.waitFor();
 
-            String[] movies = result.split("/");
+            String[] movies = result.split(", ");
             ReturnMovies_Dto returnMovies = new ReturnMovies_Dto(movies[0], movies[1], movies[2], movies[3], movies[4]);
             // 결과 반환
             return returnMovies;

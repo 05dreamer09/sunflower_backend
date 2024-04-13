@@ -2,6 +2,7 @@ package Sunflower.Sunflowerspring.service;
 
 import Sunflower.Sunflowerspring.dto.Favorite_Genres_Dto;
 import Sunflower.Sunflowerspring.dto.Favorite_Movie_Dto;
+import Sunflower.Sunflowerspring.dto.ReturnMovies_Dto;
 import Sunflower.Sunflowerspring.repository.Favorite_Genres_MemoryRepository;
 import Sunflower.Sunflowerspring.repository.Favorite_Movie_MemoryRepository;
 import org.assertj.core.api.Assertions;
@@ -33,8 +34,8 @@ public class Favorite_Genres_Movie_Test {
         favorite_movie_dto.setMovie2("범죄도시2");
         favorite_movie_dto.setMovie3("범죄도시3");
 
-
-        favorite_movie_service.returnMovie(favorite_movie_dto);
+        ReturnMovies_Dto movies;
+        movies = favorite_movie_service.returnMovie(favorite_movie_dto);
 
         /*
         assertEquals("범죄도시4", result);

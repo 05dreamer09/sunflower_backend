@@ -17,8 +17,8 @@ public class Favorite_Genres_MemoryRepository implements Favorite_Genres_Reposit
 
     @Override
     public Favorite_Genres save(Favorite_Genres favorite_genres) {
-        favorite_genres.setgid(++sequence);
-        store.put(favorite_genres.getgid(), favorite_genres);
+        favorite_genres.setGid(++sequence);
+        store.put(favorite_genres.getGid(), favorite_genres);
         return favorite_genres;
     }
 

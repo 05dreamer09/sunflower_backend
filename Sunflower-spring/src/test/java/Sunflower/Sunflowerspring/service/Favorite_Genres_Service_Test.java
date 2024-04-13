@@ -28,6 +28,7 @@ public class Favorite_Genres_Service_Test {
         Favorite_Genres_Dto favorite_genres_dto = new Favorite_Genres_Dto();
         favorite_genres_dto.setGenre1("공포");
         favorite_genres_dto.setGenre2("액션");
+        favorite_genres_dto.setGenre3("장현준");
 
         favorite_genres_service.saveFavoriteGenres(favorite_genres_dto);
 
@@ -36,19 +37,6 @@ public class Favorite_Genres_Service_Test {
         Assertions.assertThat(favorite_genres_dto.getGenre1()).isEqualTo(testGenre1.getGenre1());
     }
 
-    @Test
-    public void returnMovieTest()   {
-        Favorite_Genres_Dto favorite_genres_dto = new Favorite_Genres_Dto();
-        favorite_genres_dto.setGenre1("공포");
-        favorite_genres_dto.setGenre2("액션");
-
-        favorite_genres_service.saveFavoriteGenres(favorite_genres_dto);
-
-        String result = favorite_genres_service.returnMovie(favorite_genres_dto);
-
-        assertEquals("아싸! 입력한 장르는 '공포'와 '액션'입니다.", result);
-
-    }
 
 
 

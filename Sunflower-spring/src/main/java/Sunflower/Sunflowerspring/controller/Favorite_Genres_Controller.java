@@ -5,6 +5,7 @@ import Sunflower.Sunflowerspring.service.Favorite_Genres_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = {"https://resttesttest.com/", "http://127.0.0.1/", "https://125.178.91.189/", "http://125.178.91.189", "125.178.91.189"}) // 컨트롤러에서 설정
 @RestController
 public class Favorite_Genres_Controller {
 
@@ -16,7 +17,8 @@ public class Favorite_Genres_Controller {
     @PostMapping("favoritegenres")
     public String save( Favorite_Genres_Dto favorite_genres_dto)  {
         favorite_genres_service.saveFavoriteGenres(favorite_genres_dto);
-        return favorite_genres_service.returnMovie(favorite_genres_dto);
+        //여기에 DB에서 영화들 넘겨주는 기능 넣으면 됨.
+        return "기달";
     }
 
     @GetMapping("FavoriteGenres/{genre1}")

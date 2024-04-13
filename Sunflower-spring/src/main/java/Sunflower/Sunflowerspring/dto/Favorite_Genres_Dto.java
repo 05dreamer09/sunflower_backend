@@ -5,15 +5,24 @@ public class Favorite_Genres_Dto {
     private Long gid;
     private String genre1;
     private String genre2;
+    private String genre3;
 
-
-    public Long getgid() {
+    public Long getGid() {
         return gid;
     }
 
-    public void setgid(Long gid) {
+    public void setGid(Long gid) {
         this.gid = gid;
     }
+
+    public String getGenre3() {
+        return genre3;
+    }
+
+    public void setGenre3(String genre3) {
+        this.genre3 = genre3;
+    }
+
     public String getGenre1() {
         return genre1;
     }

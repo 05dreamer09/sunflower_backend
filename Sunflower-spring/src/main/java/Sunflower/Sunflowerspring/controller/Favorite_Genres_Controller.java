@@ -6,7 +6,7 @@ import Sunflower.Sunflowerspring.service.Favorite_Genres_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = {"https://resttesttest.com/", "http://127.0.0.1/", "https://125.178.91.189/", "http://125.178.91.189", "125.178.91.189"}) // 컨트롤러에서 설정
+@CrossOrigin(origins = {"https://resttesttest.com/", "http://127.0.0.1/", "localhost", "localhost:80", "http://localhost"}) // 컨트롤러에서 설정
 @RestController
 public class Favorite_Genres_Controller {
 
@@ -15,7 +15,7 @@ public class Favorite_Genres_Controller {
     @Autowired
     public Favorite_Genres_Controller(Favorite_Genres_Service favorite_genres_service) { this.favorite_genres_service = favorite_genres_service;    }
 
-    @PostMapping("favoritegenres")
+    @PostMapping("/api/favoritegenres")
     public GenreMovies save( Favorite_Genres_Dto favorite_genres_dto)  {
         favorite_genres_service.saveFavoriteGenres(favorite_genres_dto);
 
@@ -29,12 +29,12 @@ public class Favorite_Genres_Controller {
         return a;
     }
 
-    @GetMapping("FavoriteGenres/{genre1}")
+    @GetMapping("/api/favoriteGenres/{genre1}")
     public Favorite_Genres_Dto findFGByGenre1(@PathVariable String genre1)  {
         return favorite_genres_service.findFGByGenre1(genre1);
     }
 
-    @GetMapping("asdf")
+    @GetMapping("/api/asdf")
     public String asdf()
     {
         return "장현준 바보";

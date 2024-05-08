@@ -32,8 +32,11 @@ public class UserService {
     }
 
     public String login(String userName, String password) {
+        //userName없음
+        userRepository.findByUserName(userName)
+                .orElseThrow(() ->new RuntimeException("등록된 userName이 없습니다"));
+        //userName 틀림
 
-
-        return "toker";
+        return "token";
     }
 }

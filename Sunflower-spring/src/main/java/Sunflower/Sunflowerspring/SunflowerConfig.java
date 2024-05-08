@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
-//@Configuration
+@Configuration
 public class SunflowerConfig {
     private DataSource dataSource;
 
@@ -17,7 +17,7 @@ public class SunflowerConfig {
         return new Favorite_Genres_MemoryRepository();
     }
     @Bean
-    public Favorite_Genres_Service favorite_genres_service() { return new Favorite_Genres_Service(favorite_genres_repository());}
-
-
+    public Favorite_Genres_Service favorite_genres_service() {
+        return new Favorite_Genres_Service(favorite_genres_repository());
+    }
 }

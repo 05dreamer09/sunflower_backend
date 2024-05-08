@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -36,10 +37,11 @@ class UserControllerTest {
 
     @Test
     @DisplayName("회원가입 성공")
+    @WithMockUser
     void join() throws Exception {
 
-        String userName = "asdf";
-        String password = "asdfg";
+        String userName = "rudah78";
+        String password = "sodlfmadms0078";
 
         mockMvc.perform(post("/api/v1/users/join")
                         .with(csrf())
@@ -50,6 +52,7 @@ class UserControllerTest {
 
     @Test
     @DisplayName("회원가입 실패 - userName 중복")
+    @WithMockUser
     void join_fail() throws Exception {
 
         String userName = "rudah78";
@@ -89,7 +92,7 @@ class UserControllerTest {
     @WithAnonymousUser
     void login_fail() throws Exception {
 
-        String userName = "rudah78";
+        String userName = "rudah7815";
         String password = "sodlfmadms0078@";
 
         when(userService.login(any(), any()))

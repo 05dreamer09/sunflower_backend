@@ -1,0 +1,14 @@
+server:
+  servlet:
+    encoding:
+      force-response: true
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://43.203.49.24:3306/sfdb
+    username: sf
+    password: rkseksgkwksk

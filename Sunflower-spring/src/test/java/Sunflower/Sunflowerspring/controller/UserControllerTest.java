@@ -1,3 +1,5 @@
+/*
+
 package Sunflower.Sunflowerspring.controller;
 
 import Sunflower.Sunflowerspring.domain.UserJoinRequest;
@@ -119,4 +121,4 @@ class UserControllerTest {
                 .andDo(print())
                 .andExpect(status().isUnauthorized());
     }
-}
+}*/

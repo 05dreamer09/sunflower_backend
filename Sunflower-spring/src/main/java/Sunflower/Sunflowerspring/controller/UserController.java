@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
-
-    @PostMapping("/join")
+    @CrossOrigin(origins = {"https://resttesttest.com/", "http://127.0.0.1/", "localhost", "localhost:80", "http://localhost", "https://localhost", "localhost:443", "https://movie-recommendation.kro.kr"}) // 컨트롤러에서 설정
+    @PostMapping("/api/join")
     public ResponseEntity<String> join(@RequestBody UserJoinRequest dto) {
         userService.join(dto.getUserName(), dto.getPassword());
         return ResponseEntity.ok().body("회원가입이 성공했습니다.");
     }
 
-    @PostMapping("/login") //로그인 요청하면 token을 발급함 아직 구현 안함
+    @PostMapping("/api/login") //로그인 요청하면 token을 발급함 아직 구현 안함
     public ResponseEntity<String> log(@RequestBody UserLoginRequest dto) {
         String token = userService.login(dto.getUserName(), dto.getPassword());
         return ResponseEntity.ok().body(token);

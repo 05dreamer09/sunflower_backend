@@ -30,4 +30,10 @@ public class UserService {
 
         return "회원가입 완료";
     }
+
+    public String login(String userName, String password) {
+
+
+        return "toker";
+    }
 }

@@ -2,6 +2,7 @@ package Sunflower.Sunflowerspring.controller;
 
 
 import Sunflower.Sunflowerspring.domain.UserJoinRequest;
+import Sunflower.Sunflowerspring.domain.UserLoginRequest;
 import Sunflower.Sunflowerspring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,9 @@ public class UserController {
     }
 
     @PostMapping("/login") //로그인 요청하면 token을 발급함 아직 구현 안함
-    public ResponseEntity<String> login() {
-        return ResponseEntity.ok().body("token");
+    public ResponseEntity<String> log(@RequestBody UserLoginRequest dto) {
+        String token = userService.login(dto.getUserName(), dto.getPassword());
+        return ResponseEntity.ok().body(token);
+
     }
 }

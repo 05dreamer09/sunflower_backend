@@ -4,8 +4,11 @@ import Sunflower.Sunflowerspring.domain.User;
 import Sunflower.Sunflowerspring.domain.UserJoinRequest;
 import Sunflower.Sunflowerspring.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,8 +37,11 @@ public class UserService {
 
     public String login(String userName, String password) {
         //userName없음
-        userRepository.findByUserName(userName)
-                .orElseThrow(() ->new RuntimeException("등록된 userName이 없습니다"));
+        Optional<User> a = userRepository.findByUserName(userName);
+
+        if (a.isEmpty()) {
+            return "아이디가 존재하지 않습니다.";
+        }
         //userName 틀림
 
         return "token";

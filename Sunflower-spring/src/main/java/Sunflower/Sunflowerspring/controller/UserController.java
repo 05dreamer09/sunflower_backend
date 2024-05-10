@@ -7,8 +7,6 @@ import Sunflower.Sunflowerspring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.MediaType;
-
 
 @CrossOrigin(origins = {"https://resttesttest.com/", "http://127.0.0.1/", "localhost", "localhost:80", "http://localhost", "https://localhost", "localhost:443", "https://movie-recommendation.kro.kr"}) // 컨트롤러에서 설정
 @RestController
@@ -16,15 +14,16 @@ import org.springframework.http.MediaType;
 public class UserController {
 
     private final UserService userService;
-    @PostMapping(value = "/api/join", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> join(@RequestBody UserJoinRequest dto) {
-        userService.join(dto);
-        return ResponseEntity.ok().body("회원가입이 성공했습니다.");
+    @PostMapping("/api/join")
+    public ResponseEntity<String> join(UserJoinRequest UserJoinRequest) {
+        String name = UserJoinRequest.getUserName();
+        userService.join(UserJoinRequest);
+        return ResponseEntity.ok().body(name + "의 회원가입이 성공했습니다.");
     }
 
     @PostMapping("/api/login") //로그인 요청하면 token을 발급함 아직 구현 안함
-    public ResponseEntity<String> login(@RequestBody UserLoginRequest dto) {
-        String token = userService.login(dto.getUserName(), dto.getPassword());
+    public ResponseEntity<String> login(@RequestBody UserLoginRequest userLoginRequest) {
+        String token = userService.login(userLoginRequest.getUserName(), userLoginRequest.getPassword()); //로그인에 성공하면 token리턴함
         return ResponseEntity.ok().body(token); //성공하면 body에 token 실어서 넘김
     }
 }

@@ -32,13 +32,14 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/api/join","/api/login ").permitAll()
+                                .requestMatchers("/api/join").permitAll()
+                                .requestMatchers("/api/login ").permitAll()
                                 .anyRequest().authenticated()
                 );
         http
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(new JwtFilter(userService, key), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(userService, key), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

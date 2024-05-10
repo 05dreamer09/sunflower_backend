@@ -21,7 +21,7 @@ public class Favorite_Genres_Controller {
 
         //예시
         GenreMovies a = new GenreMovies();
-        String[] s = new String[]{"장현준1", "장현준2", "장현준3", "장현준4", "장현준5"};
+        String[] s = new String[]{"장현준", "장현준2", "장현준3", "장현준4", "장현준5"};
         a.setMovies1(s);
         a.setMovies2(s);
         a.setMovies3(s);

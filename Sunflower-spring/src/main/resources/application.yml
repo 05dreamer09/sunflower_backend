@@ -12,7 +12,6 @@ spring:
     url: jdbc:mysql://43.203.49.24:3306/sfdb
     username: sf
     password: rkseksgkwksk
-
 jwt:
   token:
-    secret: "secretKey"
+    secret: hello.world.ee.ff

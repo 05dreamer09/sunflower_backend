@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final UserService userService;
+
     @Value("${jwt.token.secret}")
     private String key;
 
@@ -33,7 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorize -> authorize
                                 .requestMatchers("/api/join").permitAll()
-                                .requestMatchers("/api/login ").permitAll()
+                                .requestMatchers("/api/login").permitAll()
                                 .anyRequest().authenticated()
                 );
         http

@@ -31,7 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
         log.info("authorization={}" , authorization);
 
         //토큰 안보내면 막아버림
-        if (authorization == null || !authorization.startsWith("Baearer ")) {
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
             log.error("authentication을 잘못 보냈습니다.");
             filterChain.doFilter(request,response);
             return;
@@ -49,8 +49,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
         //발급받은 토큰에서 userName을 꺼내야함
-        String userName = ""
-                ;
+        String userName = " ";
         // 권한 부여
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userName,null, List.of(new SimpleGrantedAuthority("USER")));

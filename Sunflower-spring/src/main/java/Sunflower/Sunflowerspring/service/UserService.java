@@ -2,6 +2,8 @@ package Sunflower.Sunflowerspring.service;
 
 import Sunflower.Sunflowerspring.domain.User;
 import Sunflower.Sunflowerspring.domain.UserJoinRequest;
+import Sunflower.Sunflowerspring.exception.AppException;
+import Sunflower.Sunflowerspring.exception.ErrorCode;
 import Sunflower.Sunflowerspring.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -37,13 +39,16 @@ public class UserService {
 
     public String login(String userName, String password) {
         //userName없음
-        Optional<User> a = userRepository.findByUserName(userName);
-
-        if (a.isEmpty()) {
-            return "아이디가 존재하지 않습니다.";
+        User selectedUser = userRepository. findByUserName(userName)
+                .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, userName + "이 없습니다"));
+        //password 틀림
+        if (!encoder.matches(selectedUser.getPassword(), password)) {
+            //매치가 안된다면
+            throw new AppException(ErrorCode.INVALID_PASSWORD, "비밀번호를 잘못 입력했습니다.")
         }
-        //userName 틀림
 
-        return "token";
+        //앞의 두 과정에서 예외에러가 없었으면 token발행함
+
+        return "token발행";
     }
 }

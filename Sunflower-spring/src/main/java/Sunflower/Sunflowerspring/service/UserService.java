@@ -2,6 +2,7 @@ package Sunflower.Sunflowerspring.service;
 
 import Sunflower.Sunflowerspring.domain.User;
 import Sunflower.Sunflowerspring.domain.UserJoinRequest;
+import Sunflower.Sunflowerspring.domain.UserLoginRequest;
 import Sunflower.Sunflowerspring.exception.AppException;
 import Sunflower.Sunflowerspring.exception.ErrorCode;
 import Sunflower.Sunflowerspring.repository.UserRepository;
@@ -44,13 +45,13 @@ public class UserService {
         return "회원가입 완료";
     }
 
-    public String login(String userName, String password) {
+    public String login(UserLoginRequest userLoginRequest) {
         //userName없음
-        User selectedUser = userRepository. findByUserName(userName)
-                .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, userName + "이 없습니다"));
+        User selectedUser = userRepository. findByUserName(userLoginRequest.getUserName())
+                .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, userLoginRequest.getUserName() + "이 없습니다"));
 
         //password 틀림
-        if (!encoder.matches(password, selectedUser.getPassword())) {
+        if (!encoder.matches(userLoginRequest.getPassword(), selectedUser.getPassword())) {
             //매치가 안된다면
             throw new AppException(ErrorCode.INVALID_PASSWORD, "비밀번호를 잘못 입력했습니다.");
         }

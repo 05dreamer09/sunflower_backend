@@ -5,7 +5,9 @@ import Sunflower.Sunflowerspring.domain.UserJoinRequest;
 import Sunflower.Sunflowerspring.exception.AppException;
 import Sunflower.Sunflowerspring.exception.ErrorCode;
 import Sunflower.Sunflowerspring.repository.UserRepository;
+import Sunflower.Sunflowerspring.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,11 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
+
+    @Value("${jwt.token.secret}")
+    private String key;
+
+    private Long expireTimeMs = 1000 * 60 * 60L;
 
     public String join(UserJoinRequest dto) {
 
@@ -41,14 +48,15 @@ public class UserService {
         //userName없음
         User selectedUser = userRepository. findByUserName(userName)
                 .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND, userName + "이 없습니다"));
+
         //password 틀림
-        if (!encoder.matches(selectedUser.getPassword(), password)) {
+        if (!encoder.matches(password, selectedUser.getPassword())) {
             //매치가 안된다면
             throw new AppException(ErrorCode.INVALID_PASSWORD, "비밀번호를 잘못 입력했습니다.");
         }
 
         //앞의 두 과정에서 예외에러가 없었으면 token발행함
-
-        return "token발행";
+        String token = JwtTokenUtil.createToken(selectedUser.getUserName(), key, expireTimeMs);
+        return token;
     }
 }

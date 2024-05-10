@@ -44,7 +44,7 @@ public class UserService {
         //password 틀림
         if (!encoder.matches(selectedUser.getPassword(), password)) {
             //매치가 안된다면
-            throw new AppException(ErrorCode.INVALID_PASSWORD, "비밀번호를 잘못 입력했습니다.")
+            throw new AppException(ErrorCode.INVALID_PASSWORD, "비밀번호를 잘못 입력했습니다.");
         }
 
         //앞의 두 과정에서 예외에러가 없었으면 token발행함

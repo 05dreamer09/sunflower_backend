@@ -7,6 +7,8 @@ import Sunflower.Sunflowerspring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
+
 
 @CrossOrigin(origins = {"https://resttesttest.com/", "http://127.0.0.1/", "localhost", "localhost:80", "http://localhost", "https://localhost", "localhost:443", "https://movie-recommendation.kro.kr"}) // 컨트롤러에서 설정
 @RestController
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    @PostMapping("/api/join")
+    @PostMapping(value = "/api/join", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> join(@RequestBody UserJoinRequest dto) {
         userService.join(dto);
         return ResponseEntity.ok().body("회원가입이 성공했습니다.");

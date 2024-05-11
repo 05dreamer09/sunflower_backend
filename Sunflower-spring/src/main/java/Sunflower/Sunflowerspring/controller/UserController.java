@@ -3,6 +3,7 @@ package Sunflower.Sunflowerspring.controller;
 
 import Sunflower.Sunflowerspring.domain.UserJoinRequest;
 import Sunflower.Sunflowerspring.domain.UserLoginRequest;
+import Sunflower.Sunflowerspring.domain.returnDto;
 import Sunflower.Sunflowerspring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +22,14 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @PostMapping("/api/join")
-    public ResponseEntity<String> join(UserJoinRequest UserJoinRequest) {
-        logger.info("받은거 : {}", UserJoinRequest);
+    public ResponseEntity<returnDto> join(UserJoinRequest UserJoinRequest) {
         String name = UserJoinRequest.getUserName();
         userService.join(UserJoinRequest);
-        return ResponseEntity.ok().body(name + "의 회원가입이 성공했습니다.");
+
+        returnDto ss = new returnDto();
+        ss.setSs("name + \"의 회원가입이 성공했습니다.\"");
+
+        return ResponseEntity.ok().body(ss);
     }
 
     @PostMapping("/api/login") //로그인 요청하면 token을 발급함

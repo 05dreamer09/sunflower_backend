@@ -8,9 +8,9 @@ import java.util.Date;
 
 public class JwtTokenUtil {
 
-    public static String getUserName(String token, String secretKey) {
+    public static String getId(String token, String secretKey) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
-                .getBody().get("userName",String.class);
+                .getBody().get("id",String.class);
 
     }
     public static boolean isExpired(String token, String secretKey) {
@@ -18,9 +18,9 @@ public class JwtTokenUtil {
                 .getBody().getExpiration().before(new Date());
     }
 
-    public static String createToken(String userName, String key, long expireTimeMs) {
+    public static String createToken(String id, String key, long expireTimeMs) {
         Claims claims = Jwts.claims(); // claim은 토큰에 내가 원하는 정보를 담아둘 수 있게 해줌
-        claims.put("userName", userName); //키 : 값
+        claims.put("id", id); //키 : 값
 
         return Jwts.builder()
                 .setClaims(claims)

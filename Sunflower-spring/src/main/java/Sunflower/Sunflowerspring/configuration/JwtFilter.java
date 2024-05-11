@@ -49,12 +49,12 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
         //발급받은 토큰에서 userName을 꺼내야함
-        String userName = JwtTokenUtil.getUserName(token, key);
-        log. info("userName: {}", userName);
+        String id = JwtTokenUtil.getId(token, key);
+        log. info("id: {}", id);
 
         // 권한 부여
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(userName,null, List.of(new SimpleGrantedAuthority("USER")));
+                new UsernamePasswordAuthenticationToken(id,null, List.of(new SimpleGrantedAuthority("USER")));
 
         // Detail을 넣어줍니다.
         authenticationToken. setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

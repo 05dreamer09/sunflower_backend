@@ -25,7 +25,7 @@ public class UserController {
 
     @PostMapping("/api/login") //로그인 요청하면 token을 발급함
     public ResponseEntity<String> login(UserLoginRequest userLoginRequest) {
-        log.info(userLoginRequest.getId(), userLoginRequest.getPassword());
+        log.info(userLoginRequest.getUserId(), userLoginRequest.getPassword());
         String token = userService.login(userLoginRequest); //로그인에 성공하면 token리턴함
         return ResponseEntity.ok().body("success " + token); //성공하면 body에 token 실어서 넘김
     }

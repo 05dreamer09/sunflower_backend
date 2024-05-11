@@ -8,9 +8,9 @@ import java.util.Date;
 
 public class JwtTokenUtil {
 
-    public static String getId(String token, String secretKey) {
+    public static String getUserId(String token, String secretKey) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
-                .getBody().get("id",String.class);
+                .getBody().get("userId",String.class);
 
     }
     public static boolean isExpired(String token, String secretKey) {

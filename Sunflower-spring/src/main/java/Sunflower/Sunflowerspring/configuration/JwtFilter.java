@@ -49,7 +49,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
         //발급받은 토큰에서 userName을 꺼내야함
-        String id = JwtTokenUtil.getId(token, key);
+        String id = JwtTokenUtil.getUserId(token, key);
         log. info("id: {}", id);
 
         // 권한 부여

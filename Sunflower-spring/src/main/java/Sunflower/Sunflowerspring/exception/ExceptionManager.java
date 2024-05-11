@@ -20,7 +20,7 @@ public class ExceptionManager {
 
     @ExceptionHandler(AppException.class)
     public ResponseEntity<LoginReturnDto> loginExceptionHandler(AppException e) {
-        Enum error = e.getErrorCode();
+        ErrorCode error = e.getErrorCode();
         LoginReturnDto loginReturnDto = new LoginReturnDto();
         loginReturnDto.setStatus(400);
         if (error == ErrorCode.ID_ERROR) {

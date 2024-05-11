@@ -10,9 +10,9 @@ public enum ErrorCode {
 
     USERNAME_DUPLICATED(HttpStatus.CONFLICT),
 
-    USERNAME_NOT_FOUND(HttpStatus.NOT_FOUND),
+    ID_ERROR(HttpStatus.NOT_FOUND),
 
-    INVALID_PASSWORD(HttpStatus.UNAUTHORIZED);
+    PASSWORD_ERROR(HttpStatus.UNAUTHORIZED);
 
     private HttpStatus httpStatus;
 

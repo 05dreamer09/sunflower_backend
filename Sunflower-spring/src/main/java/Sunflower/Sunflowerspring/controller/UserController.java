@@ -27,6 +27,6 @@ public class UserController {
     public ResponseEntity<String> login(UserLoginRequest userLoginRequest) {
         log.info(userLoginRequest.getUserName(), userLoginRequest.getPassword());
         String token = userService.login(userLoginRequest); //로그인에 성공하면 token리턴함
-        return ResponseEntity.ok().body(token); //성공하면 body에 token 실어서 넘김
+        return ResponseEntity.ok().body("success " + token); //성공하면 body에 token 실어서 넘김
     }
 }

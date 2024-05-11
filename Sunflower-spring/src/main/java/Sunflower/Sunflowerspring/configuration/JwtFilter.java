@@ -31,7 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
         log.info("authorization={}" , authorization);
 
         //토큰 안보내면 막아버림
-        if (authorization == null || !authorization.startsWith("Bearer ")) {
+        if (authorization == null || !authorization.startsWith("Bearer ") || authorization.equals("authorization")) {
             log.error("authentication을 잘못 보냈습니다.");
             filterChain.doFilter(request,response);
             return;

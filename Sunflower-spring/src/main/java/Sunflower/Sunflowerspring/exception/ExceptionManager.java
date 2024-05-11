@@ -10,7 +10,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionManager {
     //예외 처리를 하는 클래스
+
     @ExceptionHandler(AppException.class)
+    public ResponseEntity<?> handleAppException(AppException e) {
+        if (e.getErrorCode() == ErrorCode.ID_ERROR) {
+            return joinExceptionHandler(e);
+        } else {
+            return loginExceptionHandler(e);
+        }
+    }
+
     public ResponseEntity<JoinReturnDto> joinExceptionHandler(AppException e) {
         JoinReturnDto returnDto = new JoinReturnDto();
         returnDto.setStatus(400);
@@ -18,7 +27,6 @@ public class ExceptionManager {
         return ResponseEntity.ok().body(returnDto);
     }
 
-    @ExceptionHandler(AppException.class)
     public ResponseEntity<LoginReturnDto> loginExceptionHandler(AppException e) {
         ErrorCode error = e.getErrorCode();
         LoginReturnDto loginReturnDto = new LoginReturnDto();

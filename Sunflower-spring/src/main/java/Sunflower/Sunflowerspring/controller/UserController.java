@@ -6,6 +6,8 @@ import Sunflower.Sunflowerspring.domain.UserLoginRequest;
 import Sunflower.Sunflowerspring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +18,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @PostMapping("/api/join")
     public ResponseEntity<String> join(UserJoinRequest UserJoinRequest) {
+        logger.info("받은거 : {}", UserJoinRequest);
         String name = UserJoinRequest.getUserName();
         userService.join(UserJoinRequest);
         return ResponseEntity.ok().body(name + "의 회원가입이 성공했습니다.");

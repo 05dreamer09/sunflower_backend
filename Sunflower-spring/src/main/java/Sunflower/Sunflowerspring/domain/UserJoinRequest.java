@@ -10,8 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserJoinRequest {
-    private Long uId;
     private String userName;
+    private String id;
     private String password;
 
 }

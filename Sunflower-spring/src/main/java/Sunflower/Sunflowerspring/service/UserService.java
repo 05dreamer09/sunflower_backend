@@ -30,14 +30,15 @@ public class UserService {
     public String join(UserJoinRequest dto) {
 
         //중복 체크 기능 - userName : 이걸 하려면 db에 갔다와야함
-        userRepository.findByUserName(dto.getUserName())
+        userRepository.findById(dto.getId())
                 .ifPresent(user -> {
-                    throw new RuntimeException(dto.getUserName() + "는 이미 존재하는 아이디입니다.");
+                    throw new RuntimeException(dto.getId() + "는 이미 존재하는 아이디입니다.");
                 });
 
         //JPA를 통해 데이터베이스에 객체 저장
         User user = User.builder()
                 .userName(dto.getUserName())
+                .id(dto.getId())
                 .password(encoder.encode(dto.getPassword()))
                 .build();
         userRepository.save(user);
@@ -47,7 +48,7 @@ public class UserService {
 
     public String login(UserLoginRequest userLoginRequest) {
         //userName없음
-        User selectedUser = userRepository. findByUserName(userLoginRequest.getUserName())
+        User selectedUser = userRepository.findById(userLoginRequest.getId())
                 .orElseThrow(() -> new AppException(ErrorCode.ID_ERROR));
 
         //password 틀림

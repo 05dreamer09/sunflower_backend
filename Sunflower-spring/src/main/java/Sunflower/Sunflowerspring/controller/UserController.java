@@ -27,8 +27,8 @@ public class UserController {
         userService.join(UserJoinRequest);
 
         ReturnDto ss = new ReturnDto();
-        ss.setStatus("success");
-        ss.setMessage("로그인 성공");
+        ss.setStatus(200);
+        ss.setMessage("회원가입 성공");
 
         return ResponseEntity.ok().body(ss);
     }

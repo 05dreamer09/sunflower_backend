@@ -12,7 +12,7 @@ public class ExceptionManager {
     @ExceptionHandler(AppException.class)
     public ResponseEntity<ReturnDto> appExceptionHandler(AppException e) {
         ReturnDto returnDto = new ReturnDto();
-        returnDto.setStatus("400");
+        returnDto.setStatus(400);
         returnDto.setMessage("ID_ERROR");
         return ResponseEntity.ok().body(returnDto);
     }

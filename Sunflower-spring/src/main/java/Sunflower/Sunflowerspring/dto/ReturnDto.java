@@ -2,14 +2,14 @@ package Sunflower.Sunflowerspring.dto;
 
 public class ReturnDto {
 
-    private String status;
+    private int status;
     private String message;
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

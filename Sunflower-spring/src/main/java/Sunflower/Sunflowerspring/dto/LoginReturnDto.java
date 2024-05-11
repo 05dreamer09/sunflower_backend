@@ -1,9 +1,19 @@
 package Sunflower.Sunflowerspring.dto;
 
-public class ReturnDto {
+public class LoginReturnDto {
 
     private int status;
     private String message;
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    private String accessToken;
 
     public int getStatus() {
         return status;

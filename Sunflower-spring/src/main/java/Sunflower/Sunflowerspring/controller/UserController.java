@@ -3,7 +3,8 @@ package Sunflower.Sunflowerspring.controller;
 
 import Sunflower.Sunflowerspring.domain.UserJoinRequest;
 import Sunflower.Sunflowerspring.domain.UserLoginRequest;
-import Sunflower.Sunflowerspring.dto.ReturnDto;
+import Sunflower.Sunflowerspring.dto.JoinReturnDto;
+import Sunflower.Sunflowerspring.dto.LoginReturnDto;
 import Sunflower.Sunflowerspring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +23,11 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @PostMapping("/api/join")
-    public ResponseEntity<ReturnDto> join(UserJoinRequest UserJoinRequest) {
+    public ResponseEntity<JoinReturnDto> join(UserJoinRequest UserJoinRequest) {
         String name = UserJoinRequest.getUserName();
         userService.join(UserJoinRequest);
 
-        ReturnDto ss = new ReturnDto();
+        JoinReturnDto ss = new JoinReturnDto();
         ss.setStatus(200);
         ss.setMessage("회원가입 성공");
 
@@ -34,9 +35,13 @@ public class UserController {
     }
 
     @PostMapping("/api/login") //로그인 요청하면 token을 발급함
-    public ResponseEntity<String> login(UserLoginRequest userLoginRequest) {
-        log.info(userLoginRequest.getUserId(), userLoginRequest.getPassword());
+    public ResponseEntity<LoginReturnDto> login(UserLoginRequest userLoginRequest) {
+        LoginReturnDto loginReturnDto = new LoginReturnDto();
         String token = userService.login(userLoginRequest); //로그인에 성공하면 token리턴함
-        return ResponseEntity.ok().body("success " + token); //성공하면 body에 token 실어서 넘김
+
+        loginReturnDto.setStatus(200);
+        loginReturnDto.setMessage("로그인 성공");
+        loginReturnDto.setAccessToken(token);
+        return ResponseEntity.ok().body(loginReturnDto); //성공하면 body에 token 실어서 넘김
     }
 }

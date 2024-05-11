@@ -1,6 +1,7 @@
 package Sunflower.Sunflowerspring.exception;
 
-import Sunflower.Sunflowerspring.dto.ReturnDto;
+import Sunflower.Sunflowerspring.dto.JoinReturnDto;
+import Sunflower.Sunflowerspring.dto.LoginReturnDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,11 +11,24 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionManager {
     //예외 처리를 하는 클래스
     @ExceptionHandler(AppException.class)
-    public ResponseEntity<ReturnDto> appExceptionHandler(AppException e) {
-        ReturnDto returnDto = new ReturnDto();
+    public ResponseEntity<JoinReturnDto> joinExceptionHandler(AppException e) {
+        JoinReturnDto returnDto = new JoinReturnDto();
         returnDto.setStatus(400);
         returnDto.setMessage("ID_ERROR");
         return ResponseEntity.ok().body(returnDto);
+    }
+
+    @ExceptionHandler(AppException.class)
+    public ResponseEntity<LoginReturnDto> loginExceptionHandler(AppException e) {
+        Enum error = e.getErrorCode();
+        LoginReturnDto loginReturnDto = new LoginReturnDto();
+        loginReturnDto.setStatus(400);
+        if (error == ErrorCode.ID_ERROR) {
+            loginReturnDto.setMessage("ID_ERROR");
+        } else {
+            loginReturnDto.setMessage("PASSWORD_ERROR");
+        }
+        return ResponseEntity.ok().body(loginReturnDto);
     }
 
     @ExceptionHandler(RuntimeException.class)

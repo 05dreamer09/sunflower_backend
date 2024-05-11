@@ -27,7 +27,7 @@ public class UserService {
     public String join(UserJoinRequest dto) {
 
         //중복 체크 기능 - id : 이걸 하려면 db에 갔다와야함
-        userRepository.findById(dto.getUserId())
+        userRepository.findByUserId(dto.getUserId())
                 .ifPresent(user -> {
                     throw new RuntimeException(dto.getUserId() + "는 이미 존재하는 아이디입니다.");
                 });
@@ -45,7 +45,7 @@ public class UserService {
 
     public String login(UserLoginRequest userLoginRequest) {
         //userName없음
-        User selectedUser = userRepository.findById(userLoginRequest.getUserId())
+        User selectedUser = userRepository.findByUserId(userLoginRequest.getUserId())
                 .orElseThrow(() -> new AppException(ErrorCode.ID_ERROR));
 
         //password 틀림

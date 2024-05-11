@@ -1,6 +1,6 @@
 package Sunflower.Sunflowerspring.service;
 
-import Sunflower.Sunflowerspring.domain.User;
+import Sunflower.Sunflowerspring.domain.Users;
 import Sunflower.Sunflowerspring.domain.UserJoinRequest;
 import Sunflower.Sunflowerspring.domain.UserLoginRequest;
 import Sunflower.Sunflowerspring.exception.AppException;
@@ -9,11 +9,8 @@ import Sunflower.Sunflowerspring.repository.UserRepository;
 import Sunflower.Sunflowerspring.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,14 +26,14 @@ public class UserService {
 
     public String join(UserJoinRequest dto) {
 
-        //중복 체크 기능 - userName : 이걸 하려면 db에 갔다와야함
+        //중복 체크 기능 - id : 이걸 하려면 db에 갔다와야함
         userRepository.findById(dto.getId())
                 .ifPresent(user -> {
                     throw new RuntimeException(dto.getId() + "는 이미 존재하는 아이디입니다.");
                 });
 
         //JPA를 통해 데이터베이스에 객체 저장
-        User user = User.builder()
+        Users user = Users.builder()
                 .userName(dto.getUserName())
                 .id(dto.getId())
                 .password(encoder.encode(dto.getPassword()))
@@ -48,7 +45,7 @@ public class UserService {
 
     public String login(UserLoginRequest userLoginRequest) {
         //userName없음
-        User selectedUser = userRepository.findById(userLoginRequest.getId())
+        Users selectedUser = userRepository.findById(userLoginRequest.getId())
                 .orElseThrow(() -> new AppException(ErrorCode.ID_ERROR));
 
         //password 틀림

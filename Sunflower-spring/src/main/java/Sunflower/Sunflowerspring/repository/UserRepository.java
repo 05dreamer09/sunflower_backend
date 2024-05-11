@@ -1,11 +1,11 @@
 package Sunflower.Sunflowerspring.repository;
 
-import Sunflower.Sunflowerspring.domain.Users;
+import Sunflower.Sunflowerspring.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<Users, Long> {
-    Optional<Users> findById(String Id);
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findById(String Id);
 
 }

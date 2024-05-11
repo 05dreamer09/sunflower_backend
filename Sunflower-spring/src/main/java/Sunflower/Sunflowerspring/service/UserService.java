@@ -1,6 +1,6 @@
 package Sunflower.Sunflowerspring.service;
 
-import Sunflower.Sunflowerspring.domain.Users;
+import Sunflower.Sunflowerspring.domain.User;
 import Sunflower.Sunflowerspring.domain.UserJoinRequest;
 import Sunflower.Sunflowerspring.domain.UserLoginRequest;
 import Sunflower.Sunflowerspring.exception.AppException;
@@ -33,10 +33,10 @@ public class UserService {
                 });
 
         //JPA를 통해 데이터베이스에 객체 저장
-        Users user = Users.builder()
-                .userName(dto.getUserName())
+        User user = User.builder()
                 .userId(dto.getId())
                 .password(encoder.encode(dto.getPassword()))
+                .userName(dto.getUserName())
                 .build();
         userRepository.save(user);
 
@@ -45,7 +45,7 @@ public class UserService {
 
     public String login(UserLoginRequest userLoginRequest) {
         //userName없음
-        Users selectedUser = userRepository.findById(userLoginRequest.getId())
+        User selectedUser = userRepository.findById(userLoginRequest.getId())
                 .orElseThrow(() -> new AppException(ErrorCode.ID_ERROR));
 
         //password 틀림

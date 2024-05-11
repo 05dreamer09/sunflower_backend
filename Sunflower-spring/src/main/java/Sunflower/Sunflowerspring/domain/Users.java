@@ -15,8 +15,7 @@ public class Users {
     @Column(name = "user_name") // 컬럼 이름 지정
     private String userName;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String userId;
     private String password;
 }

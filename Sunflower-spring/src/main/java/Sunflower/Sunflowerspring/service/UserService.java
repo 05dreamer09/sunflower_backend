@@ -35,7 +35,7 @@ public class UserService {
         //JPA를 통해 데이터베이스에 객체 저장
         Users user = Users.builder()
                 .userName(dto.getUserName())
-                .id(dto.getId())
+                .userId(dto.getId())
                 .password(encoder.encode(dto.getPassword()))
                 .build();
         userRepository.save(user);

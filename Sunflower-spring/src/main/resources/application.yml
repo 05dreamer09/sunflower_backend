@@ -5,11 +5,11 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://43.203.49.24:3306/sfdb
+    url: jdbc:mysql://13.209.247.165:3306/sfdb
     username: sf
     password: rkseksgkwksk
 jwt:

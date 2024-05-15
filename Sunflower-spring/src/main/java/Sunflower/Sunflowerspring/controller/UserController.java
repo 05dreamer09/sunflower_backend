@@ -25,23 +25,27 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @PostMapping("/api/join")
-    public ResponseEntity<JoinReturnDto> join(UserJoinRequest UserJoinRequest) {
-        String name = UserJoinRequest.getUserName();
-        userService.join(UserJoinRequest);
+    public ResponseEntity<JoinReturnDto> join(UserJoinRequest userJoinRequest) {
+        log.info(" userId : {}",userJoinRequest.getUserId());
+        log.info(" password : {}",userJoinRequest.getPassword());
+        String name = userJoinRequest.getUserName();
+        userService.join(userJoinRequest);
 
-        JoinReturnDto ss = new JoinReturnDto();
-        ss.setStatus(200);
-        ss.setMessage("회원가입 성공");
+        JoinReturnDto joinReturnDto = new JoinReturnDto();
+        joinReturnDto.setStatus(200);
+        joinReturnDto.setMessage("회원가입 성공");
 
-        return ResponseEntity.ok().body(ss);
+        return ResponseEntity.ok().body(joinReturnDto);
     }
 
     @PostMapping("/api/login") //로그인 요청하면 token을 발급함
     public ResponseEntity<LoginReturnDto> login(UserLoginRequest userLoginRequest) {
         LoginReturnDto loginReturnDto = new LoginReturnDto();
+        log.info(" userId : {}",userLoginRequest.getUserId());
+        log.info(" userId : {}",userLoginRequest.getPassword());
+
         String token = userService.login(userLoginRequest); //로그인에 성공하면 token리턴함
 
         loginReturnDto.setStatus(200);

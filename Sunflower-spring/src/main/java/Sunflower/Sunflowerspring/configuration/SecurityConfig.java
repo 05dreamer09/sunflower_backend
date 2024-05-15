@@ -24,23 +24,31 @@ public class SecurityConfig {
     @Value("${jwt.token.secret}")
     private String key;
 
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .httpBasic(HttpBasicConfigurer::disable)
+//                .csrf(AbstractHttpConfigurer::disable);
+//
+//        http
+//                .authorizeHttpRequests(
+//                        authorize -> authorize
+//                                .requestMatchers("/api/join").permitAll()
+//                                .requestMatchers("/api/login").permitAll()
+//                                .anyRequest().authenticated()
+//                );
+//        http
+//                .sessionManagement(session -> session
+//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .addFilterBefore(new JwtFilter(userService, key), UsernamePasswordAuthenticationFilter.class);
+//        return http.build();
+//    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .httpBasic(HttpBasicConfigurer::disable)
+        http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest()
+                        .permitAll())
                 .csrf(AbstractHttpConfigurer::disable);
-
-        http
-                .authorizeHttpRequests(
-                        authorize -> authorize
-                                .requestMatchers("/api/join").permitAll()
-                                .requestMatchers("/api/login").permitAll()
-                                .anyRequest().authenticated()
-                );
-        http
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(new JwtFilter(userService, key), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

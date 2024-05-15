@@ -3,6 +3,7 @@ package Sunflower.Sunflowerspring.controller;
 import Sunflower.Sunflowerspring.dto.Favorite_Genres_Dto;
 import Sunflower.Sunflowerspring.dto.Favorite_Movie_Dto;
 import Sunflower.Sunflowerspring.dto.ReturnMovies_Dto;
+import Sunflower.Sunflowerspring.dto.ReturnMovies_Dto2;
 import Sunflower.Sunflowerspring.service.Favorite_Genres_Service;
 import Sunflower.Sunflowerspring.service.Favorite_Movie_Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +25,35 @@ public class Favorite_Movie_Controller {
 
     }
 
+
+    @PostMapping("/api/favoritemovies2")
+    public ReturnMovies_Dto2 returnMovie2(Favorite_Movie_Dto favorite_movie_dto)  {
+
+        ReturnMovies_Dto aa = favorite_movie_service.returnMovie(favorite_movie_dto);
+        ReturnMovies_Dto2 returnMoviesDto2 = new ReturnMovies_Dto2();
+
+        String [] ss = {"ss", "ss"};
+        ss[0] = aa.getMovie1();
+        ss[1] = favorite_movie_service.getMoviePosterUrl(ss[0]);
+        returnMoviesDto2.setMovie1(ss);
+
+        ss[0] = aa.getMovie2();
+        ss[1] = favorite_movie_service.getMoviePosterUrl(ss[0]);
+        returnMoviesDto2.setMovie2(ss);
+
+        ss[0] = aa.getMovie3();
+        ss[1] = favorite_movie_service.getMoviePosterUrl(ss[0]);
+        returnMoviesDto2.setMovie3(ss);
+
+        ss[0] = aa.getMovie4();
+        ss[1] = favorite_movie_service.getMoviePosterUrl(ss[0]);
+        returnMoviesDto2.setMovie4(ss);
+
+        ss[0] = aa.getMovie5();
+        ss[1] = favorite_movie_service.getMoviePosterUrl(ss[0]);
+        returnMoviesDto2.setMovie5(ss);
+
+        return returnMoviesDto2;
+
+    }
 }

@@ -8,6 +8,8 @@ import Sunflower.Sunflowerspring.dto.Favorite_Movie_Dto;
 import Sunflower.Sunflowerspring.dto.ReturnMovies_Dto;
 import Sunflower.Sunflowerspring.repository.Favorite_Genres_Repository;
 import Sunflower.Sunflowerspring.repository.Favorite_Movie_Repository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -89,54 +91,49 @@ public class Favorite_Movie_Service {
 
 
     //그거뭐냐 포스터 리턴용
-    private final String apiKey = "a66d8479b7dc638635b13d32680073a1";
+    private final String API_KEY = "a66d8479b7dc638635b13d32680073a1";
+    private final String TMDB_SEARCH_URL = "https://api.themoviedb.org/3/search/movie?api_key={apiKey}&query={query}&language=ko-KR";
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    //@Autowired
+    private RestTemplate restTemplate = new RestTemplate();
 
+    public String getMoviePosterUri(String movieTitle) {
+        // TMDB API 호출을 위한 URL 및 파라미터 설정
+        String url = TMDB_SEARCH_URL.replace("{apiKey}", API_KEY).replace("{query}", movieTitle);
 
-    public String getMoviePosterUrl(String movieTitle) {
-        try {
-            String encodedTitle = URLEncoder.encode(movieTitle, StandardCharsets.UTF_8);
-            String apiUrl = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey + "&query=" + encodedTitle;
+        // TMDB API 호출 및 응답 수신
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+        String responseBody = responseEntity.getBody();
 
-            ResponseEntity<TMDBResponse> response = restTemplate.getForEntity(apiUrl, Favorite_Movie_Service.TMDBResponse.class);
+        // 응답 결과에서 포스터 URI 추출
+        String posterUri = extractPosterUri(responseBody);
 
-            if (response.getBody() != null && response.getBody().getResults() != null && response.getBody().getResults().length > 0) {
-                String posterPath = response.getBody().getResults()[0].getPosterPath();
-                return "https://image.tmdb.org/t/p/original" + posterPath;
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return posterUri;
     }
 
-    static class TMDBResponse {
-        private Favorite_Movie_Service.TMDBMovie[] results;
+    private String extractPosterUri(String responseBody) {
+        // 여기서는 간단하게 JSON 파싱을 수행하고 첫 번째 결과의 포스터 URI를 반환하는 것으로 가정합니다.
+        // 실제로는 JSON 파싱을 더 강력하게 수행해야 합니다.
+        // Gson, Jackson 등의 라이브러리를 사용하면 편리합니다.
 
-        public Favorite_Movie_Service.TMDBMovie[] getResults() {
-            return results;
+        // 간단한 JSON 파싱 예시
+        // 이 부분은 실제 TMDB API 응답에 따라서 변경될 수 있습니다.
+        // 예시로 간단하게 구현했으니 실제로는 더 복잡한 JSON 파싱이 필요할 수 있습니다.
+        // 실제 구현에 따라 JSON 파싱 라이브러리 (Gson, Jackson 등)을 사용하는 것이 좋습니다.
+        int startIndex = responseBody.indexOf("\"poster_path\":");
+        if (startIndex == -1) {
+            return "No poster available";
         }
+        startIndex += "\"poster_path\":".length();
+        int endIndex = responseBody.indexOf(",", startIndex);
+        String posterPath = responseBody.substring(startIndex, endIndex);
+        posterPath = posterPath.replaceAll("\"", ""); // 따옴표 제거
 
-        public void setResults(Favorite_Movie_Service.TMDBMovie[] results) {
-            this.results = results;
-        }
+        // 포스터 URI 생성
+        String posterUri = "https://image.tmdb.org/t/p/original" + posterPath;
+
+        return posterUri;
     }
-
-    static class TMDBMovie {
-        private String poster_path;
-
-        public String getPosterPath() {
-            return poster_path;
-        }
-
-        public void setPosterPath(String poster_path) {
-            this.poster_path = poster_path;
-        }
-    }
-
 }
 
 

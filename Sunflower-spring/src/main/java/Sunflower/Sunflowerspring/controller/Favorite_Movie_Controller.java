@@ -30,28 +30,32 @@ public class Favorite_Movie_Controller {
     public ReturnMovies_Dto2 returnMovie2(Favorite_Movie_Dto favorite_movie_dto)  {
 
         ReturnMovies_Dto aa = favorite_movie_service.returnMovie(favorite_movie_dto);
-        ReturnMovies_Dto2 returnMoviesDto2 = new ReturnMovies_Dto2();
 
-        String [] ss = {"ss", "ss"};
-        ss[0] = aa.getMovie1();
-        ss[1] = favorite_movie_service.getMoviePosterUrl(ss[0]);
-        returnMoviesDto2.setMovie1(ss);
 
-        ss[0] = aa.getMovie2();
-        ss[1] = favorite_movie_service.getMoviePosterUrl(ss[0]);
-        returnMoviesDto2.setMovie2(ss);
+        String [] ss1 = {"ss", "ss"};
+        ss1[0] = aa.getMovie1();
+        ss1[1] = favorite_movie_service.getMoviePosterUri(aa.getMovie1());
 
-        ss[0] = aa.getMovie3();
-        ss[1] = favorite_movie_service.getMoviePosterUrl(ss[0]);
-        returnMoviesDto2.setMovie3(ss);
+        String [] ss2 = {"ss", "ss"};
+        ss2[0] = aa.getMovie2();
+        ss2[1] = favorite_movie_service.getMoviePosterUri(aa.getMovie2());
 
-        ss[0] = aa.getMovie4();
-        ss[1] = favorite_movie_service.getMoviePosterUrl(ss[0]);
-        returnMoviesDto2.setMovie4(ss);
 
-        ss[0] = aa.getMovie5();
-        ss[1] = favorite_movie_service.getMoviePosterUrl(ss[0]);
-        returnMoviesDto2.setMovie5(ss);
+        String [] ss3 = {"ss", "ss"};
+        ss3[0] = aa.getMovie3();
+        ss3[1] = favorite_movie_service.getMoviePosterUri(aa.getMovie3());
+
+
+        String [] ss4 = {"ss", "ss"};
+        ss4[0] = aa.getMovie4();
+        ss4[1] = favorite_movie_service.getMoviePosterUri(aa.getMovie4());
+
+        String [] ss5 = {"ss", "ss"};
+        ss5[0] = aa.getMovie5();
+        ss5[1] = favorite_movie_service.getMoviePosterUri(aa.getMovie5());
+
+        ReturnMovies_Dto2 returnMoviesDto2 = new ReturnMovies_Dto2(ss1, ss2 ,ss3, ss4, ss5);
+
 
         return returnMoviesDto2;
 

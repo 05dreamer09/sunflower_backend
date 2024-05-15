@@ -2,6 +2,15 @@ package Sunflower.Sunflowerspring.dto;
 
 public class ReturnMovies_Dto2 {
 
+    public ReturnMovies_Dto2(String[] movie1, String[] movie2, String[] movie3, String[] movie4, String[] movie5)
+    {
+        setMovie1(movie1);
+        setMovie2(movie2);
+        setMovie3(movie3);
+        setMovie4(movie4);
+        setMovie5(movie5);
+    }
+
     String [] movie1;
     String [] movie2;
     String [] movie3;

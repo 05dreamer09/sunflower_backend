@@ -58,7 +58,7 @@ public class Favorite_Movie_Service {
             String pythonPath = "python3";
 
             // 파이썬 스크립트 경로
-            String scriptPath = "../../../movie2.py";
+            String scriptPath = "movie2.py";
             // String scriptPath = "/home/ubuntu/movie.py";
 
             // 파이썬 실행 명령 준비

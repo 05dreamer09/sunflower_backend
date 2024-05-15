@@ -1,7 +1,9 @@
 package Sunflower.Sunflowerspring.configuration;
 
+import Sunflower.Sunflowerspring.dto.ApiReturnDto;
 import Sunflower.Sunflowerspring.service.UserService;
 import Sunflower.Sunflowerspring.utils.JwtTokenUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,7 +19,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -38,8 +42,11 @@ public class JwtFilter extends OncePerRequestFilter {
             if (authorization == null || !authorization.startsWith("Bearer ")) {
                 log.error("authentication을 잘못 보냈습니다.");
                 filterChain.doFilter(request,response);
+                //sendErrorResponse(response, 0, "missing");
                 return;
             }
+
+            ApiReturnDto apiReturnDto = new ApiReturnDto();
 
             //토큰 추출하기
             String token = authorization.split(" ")[1];
@@ -48,12 +55,16 @@ public class JwtFilter extends OncePerRequestFilter {
             if (JwtTokenUtil.isExpired(token, key)) {
                 log.error("토큰이 만료됐습니다.");
                 filterChain.doFilter(request,response);
-                return;
+                sendErrorResponse(response, 0, "expired");
+
             }
 
             //발급받은 토큰에서 userName을 꺼냄
             String id = JwtTokenUtil.getUserId(token, key);
+            log.info("token: {}", token);
+            log.info("key: {}", key);
             log.info("id: {}", id);
+
 
             // 권한 부여
             UsernamePasswordAuthenticationToken authenticationToken =
@@ -63,6 +74,20 @@ public class JwtFilter extends OncePerRequestFilter {
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             filterChain.doFilter(request, response);
+                //sendErrorResponse(response, 0, "access");
+
         }
+
+    }
+    private void sendErrorResponse(HttpServletResponse response, int status, String message) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // Unauthorized status
+        response.setContentType("application/json");
+
+        Map<String, Object> errorResponse = new HashMap<>();
+        errorResponse.put("status", status);
+        errorResponse.put("message", message);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
     }
 }

@@ -63,8 +63,14 @@ public class Favorite_Movie_Service {
             String scriptPath = "movie2.py";
             // String scriptPath = "/home/ubuntu/movie.py";
 
+            String a1 = "\'"+favorite_movie_dto.getMovie1()+"\'";
+            String a2 = "\'"+favorite_movie_dto.getMovie2()+"\'";
+            String a3 = "\'"+favorite_movie_dto.getMovie3()+"\'";
+
+
             // 파이썬 실행 명령 준비
-            ProcessBuilder pb = new ProcessBuilder(pythonPath, scriptPath, favorite_movie_dto.getMovie1(), favorite_movie_dto.getMovie2(), favorite_movie_dto.getMovie3());
+            ProcessBuilder pb = new ProcessBuilder(pythonPath, scriptPath, a1, a2, a3);
+
 
             // 프로세스 실행
             Process process = pb.start();
@@ -80,7 +86,7 @@ public class Favorite_Movie_Service {
             process.waitFor();
 
             String[] movies = result.split(", ");
-            ReturnMovies_Dto returnMovies = new ReturnMovies_Dto(movies[0], movies[1], movies[2], movies[3], movies[4]);
+            ReturnMovies_Dto returnMovies = new ReturnMovies_Dto(movies[0], movies[1], movies[2], movies[3], movies[4], movies[5], movies[6], movies[7], movies[8], movies[9]);
             // 결과 반환
             return returnMovies;
         } catch (IOException | InterruptedException e) {
@@ -134,6 +140,8 @@ public class Favorite_Movie_Service {
 
         return posterUri;
     }
+
+
 }
 
 

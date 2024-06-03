@@ -30,7 +30,7 @@ public class UserService {
         //중복 체크 기능 - id : 이걸 하려면 db에 갔다와야함
         userRepository.findByUserId(dto.getUserId())
                 .ifPresent(user -> {
-                    throw new RuntimeException(dto.getUserId() + "는 이미 존재하는 아이디입니다.");
+                    throw new AppException(ErrorCode.ID_ERROR);
                 });
 
         //JPA를 통해 데이터베이스에 객체 저장
